@@ -39,5 +39,17 @@ if __name__ == "__main__":
     gender = gender_list.dot(g_gender_list)[0]
     age = age_list.dot(g_age_list)[0]
     
+    cv2.namedWindow("test")
+
+    while(True):        
+        age_text = 'Age: %.2f' % age
+        gender_text = 'Gender: %.2f' % gender
+        cv2.putText(image, age_text, (130, 5), cv2.FONT_HERSHEY_SIMPLEX, 0.60, (0,255,0), 2)
+        cv2.putText(image, gender_text, (0, 5), cv2.FONT_HERSHEY_SIMPLEX, 0.60, (0,255,0), 2)
+        
+        cv2.imshow("test", image)   
+        if cv2.waitKey(1) & 0xFF == ord("q"):
+            break
+    
     print(gender, age)
     
