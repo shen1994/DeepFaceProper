@@ -24,10 +24,10 @@ if __name__ == "__main__":
     gender_y = sess.graph.get_tensor_by_name("pred_gender/Softmax:0")
     age_y = sess.graph.get_tensor_by_name("pred_age/Softmax:0")
     
-    image_path = "test.jpg"
+    image_path = "timg.jpg"
     image_size = 128
-    image = cv2.imread(image_path, 1)
-    image = cv2.resize(image, (image_size, image_size))
+    o_image = cv2.imread(image_path, 1)
+    image = cv2.resize(o_image, (image_size, image_size))
     image = image.astype('float32')
     
     gender_list, age_list = sess.run([gender_y, age_y], \
@@ -44,12 +44,13 @@ if __name__ == "__main__":
     while(True):        
         age_text = 'Age: %.2f' % age
         gender_text = 'Gender: %.2f' % gender
-        cv2.putText(image, age_text, (130, 5), cv2.FONT_HERSHEY_SIMPLEX, 0.60, (0,255,0), 2)
-        cv2.putText(image, gender_text, (0, 5), cv2.FONT_HERSHEY_SIMPLEX, 0.60, (0,255,0), 2)
+        cv2.putText(o_image, age_text, (130, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.60, (0,255,0), 2)
+        cv2.putText(o_image, gender_text, (0, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.60, (0,255,0), 2)
         
-        cv2.imshow("test", image)   
+        cv2.imwrite("DeepFaceProper-female.jpg", o_image)
+        break
+        
+        cv2.imshow("test", o_image)   
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
-    
-    print(gender, age)
     
